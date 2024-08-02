@@ -1,4 +1,5 @@
 
+
 from flask import jsonify, current_app
 
 def set_hardware_data(data):
@@ -20,3 +21,4 @@ def get_hardware_data():
     if documents:
         return jsonify(documents), 200
     return jsonify({"message": "Collection name required"}), 400
+
