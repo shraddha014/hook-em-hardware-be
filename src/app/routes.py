@@ -1,6 +1,7 @@
 # app/routes.py
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from flask_cors import CORS
+from .login import login
 from .hardware import set_hardware_data, get_hardware_data, check_in, check_out
 
 main_routes = Blueprint('main_routes', __name__)
@@ -14,6 +15,11 @@ def set_hardware():
 @main_routes.route('/get-hardware', methods=["GET"])
 def get_hardware():
     return get_hardware_data()
+
+@main_routes.route('/login', methods=['POST'])
+def login_route():
+    data = request.get_json()
+    return login(data)
 
 @main_routes.route('/set-check-in', methods=['POST'])
 def set_check_in():
