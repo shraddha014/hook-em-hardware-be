@@ -1,4 +1,5 @@
 # app/__init__.py
+
 from flask import Flask
 from .database.connection import db_connection
 

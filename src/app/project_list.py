@@ -56,5 +56,16 @@ def set_project_list_user(data):
         # Handle the case where the user document does not exist
         return {'status': 'error', 'message': 'User not found'}
 
-
+def create_project(name, description, project_id):
+    db = current_app.db
+    project_collection = db['project_collection']  # Ensure you have this collection in your MongoDB
+    result = project_collection.insert_one({
+        'name': name,
+        'description': description,
+        'project_id': project_id
+    })
+    if result.acknowledged:
+        return {'message': 'Project created successfully!', 'project_id': result.inserted_id}
+    else:
+        return {'message': 'Error creating project'}
 
