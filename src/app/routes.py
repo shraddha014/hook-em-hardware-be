@@ -1,8 +1,10 @@
+
 # app/routes.py
 from flask import Blueprint, request, jsonify
 from flask_cors import CORS
 from .login import login
 from .hardware import set_hardware_data, get_hardware_data, check_in, check_out
+from .Register import add_user
 
 main_routes = Blueprint('main_routes', __name__)
 CORS(main_routes)
@@ -30,3 +32,7 @@ def set_check_in():
 def set_check_out():
     data = request.get_json()
     return check_out(data)
+
+@main_routes.route('/register', methods=["POST"])
+def addUser():
+    return add_user(request)
