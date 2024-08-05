@@ -7,7 +7,7 @@ from .project_list import get_user_associated_project_id
 from .project_list import get_project_from_project_id
 from .project_list import set_project_list_user
 from .project_list import create_project
-import logging
+# import logging
 
 
 main_routes = Blueprint('main_routes', __name__)
@@ -62,8 +62,8 @@ def create_project_route():
     return jsonify(result), 201
 
 
-logging.basicConfig(level=logging.DEBUG)
+# logging.basicConfig(level=logging.DEBUG)
 
-@main_routes.route('/coding-check')
-def debug_function():
-    logging.debug("A debug message")
+# @main_routes.route('/coding-check')
+# def debug_function():
+#     logging.debug("A debug message")
