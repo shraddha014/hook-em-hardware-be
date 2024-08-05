@@ -3,6 +3,9 @@ from flask import Blueprint, request, jsonify
 from flask_cors import CORS
 from .login import login
 from .hardware import set_hardware_data, get_hardware_data, check_in, check_out
+from .project_list import get_user_associated_project_id
+from .project_list import get_project_from_project_id
+from .project_list import set_project_list_user
 
 main_routes = Blueprint('main_routes', __name__)
 CORS(main_routes)
@@ -30,3 +33,18 @@ def set_check_in():
 def set_check_out():
     data = request.get_json()
     return check_out(data)
+
+@main_routes.route('/api/get-user-associated-project-list', methods=['GET'])
+def get_projects_from_user():
+    data = request.args.get('username')
+    return get_user_associated_project_id(data)
+
+@main_routes.route('/api/get_project_from_project_id', methods=['GET'])
+def get_project_from_id():
+    data = request.args.get('project_id')
+    return get_project_from_project_id(data)
+
+@main_routes.route('/set_project_to_user', methods=['POST'])
+def set_project_list():
+    data = request.get_json()
+    return set_project_list_user(data)
