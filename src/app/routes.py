@@ -65,7 +65,8 @@ def set_project_list():
 def create_project_route():
     data = request.get_json()
     name = data.get('name')
+    user_name = data.get('username')
     description = data.get('description')
-    project_id = data.get('projectId')
-    result = create_project(name, description, project_id)
-    return jsonify_with_objectid(result), 201
+    project_id = data.get('project_id')
+    result, status_code = create_project(name, user_name, description, project_id)
+    return jsonify(result), status_code
