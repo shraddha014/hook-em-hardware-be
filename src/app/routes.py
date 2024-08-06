@@ -8,6 +8,17 @@ from .project_list import get_project_from_project_id
 from .project_list import set_project_list_user
 from .create_projects import create_project
 
+from bson import ObjectId
+import json
+
+def jsonify_with_objectid(data):
+    class JSONEncoder(json.JSONEncoder):
+        def default(self, o):
+            if isinstance(o, ObjectId):
+                return str(o)
+            return json.JSONEncoder.default(self, o)
+    return json.dumps(data, cls=JSONEncoder)
+
 main_routes = Blueprint('main_routes', __name__)
 CORS(main_routes)
 
@@ -57,4 +68,4 @@ def create_project_route():
     description = data.get('description')
     project_id = data.get('projectId')
     result = create_project(name, description, project_id)
-    return jsonify(result), 201
+    return jsonify_with_objectid(result), 201
