@@ -20,21 +20,18 @@ def db_check_in(data):
         # Validate hardware and project data
         hardware_data = hardware_collection.find_one({'hardware_id': hardware_id})
         if not hardware_data:
-            errors.append(f"Hardware with ID {hardware_id} not found.")
-            continue
+            return jsonify({"errors": f"Hardware with ID {hardware_id} not found."}), 400
 
         project_data = project_collection.find_one({'project_id': project_id})
         if not project_data:
-            errors.append(f"Project with ID {project_id} not found.")
-            continue
+            return jsonify({"errors": f"Project with ID {project_id} not found."}), 400
 
         # Validate check-out quantity
         check_out_list = project_data.get('check_out', [])
         existing_entry = next((entry for entry in check_out_list if entry['hardware_id'] == hardware_id), None)
         if existing_entry:
             if existing_entry['quantity'] < request_quantity:
-                errors.append(f"Check-out quantity for hardware {hardware_id} is less than requested.")
-                continue
+                return jsonify({"errors": f"Check-out quantity for hardware {hardware_id} is less than requested."}), 400
 
         # Update hardware availability
         new_availability = int(hardware_data.get('availability', 0)) + request_quantity
