@@ -6,6 +6,7 @@ from .hardware import set_hardware_data, get_hardware_data, check_in, check_out
 from .project_list import get_user_associated_project_id
 from .project_list import get_project_from_project_id
 from .project_list import set_project_list_user
+from .create_projects import create_project
 
 main_routes = Blueprint('main_routes', __name__)
 CORS(main_routes)
@@ -48,3 +49,12 @@ def get_project_from_id():
 def set_project_list():
     data = request.get_json()
     return set_project_list_user(data)
+
+@main_routes.route('/api/create-project', methods=['POST'])
+def create_project_route():
+    data = request.get_json()
+    name = data.get('name')
+    description = data.get('description')
+    project_id = data.get('projectId')
+    result = create_project(name, description, project_id)
+    return jsonify(result), 201
