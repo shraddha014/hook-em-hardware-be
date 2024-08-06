@@ -10,8 +10,8 @@ def db_connection():
         load_dotenv(find_dotenv())
 
         # Fetching username and password from env file
-        password = os.environ.get('MONGODB_PASSWORD')
-        username = os.environ.get('MONGODB_USERNAME')
+        password = os.getenv('MONGODB_PASSWORD')
+        username = os.getenv('MONGODB_USERNAME')
 
         connectionString = f"mongodb+srv://{username}:{password}@hardware-cluster.vgcxnga.mongodb.net/?retryWrites=true&w=majority&appName=hardware-cluster"
 
