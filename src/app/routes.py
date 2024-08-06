@@ -20,6 +20,18 @@ def jsonify_with_objectid(data):
                 return str(o)
             return json.JSONEncoder.default(self, o)
     return json.dumps(data, cls=JSONEncoder)
+from .create_projects import create_project
+
+from bson import ObjectId
+import json
+
+def jsonify_with_objectid(data):
+    class JSONEncoder(json.JSONEncoder):
+        def default(self, o):
+            if isinstance(o, ObjectId):
+                return str(o)
+            return json.JSONEncoder.default(self, o)
+    return json.dumps(data, cls=JSONEncoder)
 
 main_routes = Blueprint('main_routes', __name__)
 CORS(main_routes)
