@@ -1,8 +1,10 @@
+
 # app/routes.py
 from flask import Blueprint, request, jsonify
 from flask_cors import CORS
 from .login import login
 from .hardware import set_hardware_data, get_hardware_data, check_in, check_out
+from .Register import add_user
 from .project_list import get_user_associated_project_id
 from .project_list import get_project_from_project_id
 from .project_list import set_project_list_user
@@ -48,6 +50,10 @@ def set_check_out():
     data = request.get_json()
     return check_out(data)
 
+@main_routes.route('/register', methods=["POST"])
+def addUser():
+    return add_user(request)
+
 @main_routes.route('/api/get-user-associated-project-list', methods=['GET'])
 def get_projects_from_user():
     data = request.args.get('username')
@@ -62,3 +68,4 @@ def get_project_from_id():
 def set_project_list():
     data = request.get_json()
     return set_project_list_user(data)
+
