@@ -1,17 +1,10 @@
-from flask import jsonify
+from flask import current_app, jsonify
 
-def login(data):
-    email = data.get('email')
-    password = data.get('password')
+def login(email, password):
+    db = current_app.db
+    user_collection = db['user_collection']
     
-    if not email or not password:
-        return jsonify({"error": "Missing email or password"}), 400
-    
-    user_info = login(email, password)
-    if user_info:
-        return jsonify({
-            "message": "Login successful",
-            "username": user_info['username']
-        }), 200
-    else:
-        return jsonify({"error": "Invalid email or password"}), 401
+    user = user_collection.find_one({'email': email, 'password': password})
+    if user:
+        return {'username': user.get('username')}
+    return None
