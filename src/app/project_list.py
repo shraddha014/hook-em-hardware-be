@@ -26,9 +26,16 @@ def get_user_associated_project_id(user_name):
 
 def get_project_from_project_id(project_id):
     db = current_app.db
+    user_collection = db['user_collection']
+    user_doc = user_collection.find_one({'username': data['username']})
+
+    if user_doc:
+        projects = user_doc.get('projects_list', [])
+        if project_id in projects:
+            return jsonify({"message": "You are already a part of this project. Try using different project id"}), 400
     collection = db['project_collection']
-    documents = (collection.find({"project_id": project_id}))  # Find all documents, exclude _id
-    documents = list(collection.find({}))
+    print('project_id', project_id)
+    documents = collection.find_one({"project_id": project_id})  # Find all documents, with id
     documents = convert_object_id(documents)
     if documents:
         return jsonify((documents)), 200
