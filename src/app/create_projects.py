@@ -22,4 +22,4 @@ def create_project(name, user_name, description, project_id):
         if result.acknowledged:
             return {'message': 'Project created successfully!', 'project_id': str(result.inserted_id)}, 201
         else:
-            return {'message': 'Error creating project'}, 500  # 500 Internal Server Error
+            return {'message': 'Error creating project'}, 500 
