@@ -10,8 +10,6 @@ def create_project(name, user_name, description, project_id):
     user_doc = user_collection.find_one({"username": user_name})
     if not user_doc:
         return {'message': 'Error: User not found'}, 404
-    else:
-        user_id = user_doc['user_name'] 
 
     if project_collection.find_one({"project_id": project_id}):
         # Check if a project with the same project_id already exists
