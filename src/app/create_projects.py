@@ -11,7 +11,9 @@ def create_project(name, user_name, description, project_id):
     if not user_doc:
         return {'message': 'Error: User not found'}, 404
 
-    if project_collection.find_one({"project_id": project_id}):
+    project_doc = project_collection.find_one({"project_id": project_id})
+    print("project_doc", project_doc)
+    if project_doc:
         # Check if a project with the same project_id already exists
         return {'message': 'Error: Project with this ID already exists'}, 409 
     else:

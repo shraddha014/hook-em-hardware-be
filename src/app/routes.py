@@ -62,7 +62,6 @@ def login_route():
         }), 200
     else:
         return jsonify({"error": "Invalid email or password"}), 401
-    return login(data)
 
 @main_routes.route('/set-check-in', methods=['POST'])
 def set_check_in():
