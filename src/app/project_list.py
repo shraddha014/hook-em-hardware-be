@@ -27,10 +27,10 @@ def get_user_associated_project_id(user_name):
 def get_project_from_project_id(project_id):
     db = current_app.db
     collection = db['project_collection']
-    documents = collection.find({"project_id": project_id})  # Find all documents, exclude _id
-    documents = convert_object_id(documents)
+    documents = list(collection.find({"project_id": project_id}))  # Find documents with project_id
+    print("documents", documents)
     if documents:
-        return jsonify((documents)), 200
+        return jsonify(convert_object_id(documents[0])), 200
     return jsonify({"message": "There is no project associated with the id"}), 400
 
 def set_project_list_user(data):
