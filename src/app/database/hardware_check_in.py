@@ -40,6 +40,9 @@ def db_check_in(data):
 
         # Update hardware availability
         new_availability = int(hardware_data.get('availability', 0)) + request_quantity
+        capacity = int(hardware_data.get('capacity', 0))
+        if new_availability > capacity:
+            return jsonify({"errors": f"Cannot check in hardware {hardware_id} as it would exceed capacity."}), 400
         hardware_collection.update_one({'hardware_id': hardware_id}, {'$set': {'availability': new_availability}})
 
         # Update project check-out
@@ -49,9 +52,4 @@ def db_check_in(data):
 
         project_collection.update_one({'project_id': project_id}, {'$set': {'check_out': check_out_list}})
 
-        successful_updates.append(hardware_id)
-
-    if errors:
-        return jsonify({"errors": errors}), 400
-
-    return get_hardware_data_from_db()  # Refresh hardware data
+    return jsonify({"message": "Successfully updated"}), 200
