@@ -13,7 +13,7 @@ def get_user_associated_project_id(user_name):
     db = current_app.db
     collection = db['user_collection']
     project_collection= db['project_collection']
-    documents = (collection.find_one({"username": user_name}))  # Find all documents, exclude _id
+    documents = collection.find_one({"username": user_name})  # Find all documents, exclude _id
     if documents:
         project_ids = documents.get('projects_list', [])
         projects = []
@@ -27,8 +27,7 @@ def get_user_associated_project_id(user_name):
 def get_project_from_project_id(project_id):
     db = current_app.db
     collection = db['project_collection']
-    documents = (collection.find({"project_id": project_id}))  # Find all documents, exclude _id
-    documents = list(collection.find({}))
+    documents = collection.find({"project_id": project_id})  # Find all documents, exclude _id
     documents = convert_object_id(documents)
     if documents:
         return jsonify((documents)), 200
