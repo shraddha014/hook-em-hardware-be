@@ -4,6 +4,7 @@ This is the backend of our application.
 Here is our Project Plan: https://docs.google.com/document/d/1kmE1pjdTlKd4LvHaeC_ubv213oRRwGWsRQKqEAKpi_s/edit?usp=sharing
 
 Hook Em Hardware - Backend
+
 Welcome to the backend repository for the Hook Em Hardware project! This backend system is designed to support the hardware management web application, enabling users to manage accounts, projects, and hardware checkouts/check-ins seamlessly. The backend handles all the core functionality, including user authentication, project management, and hardware resource tracking.
 
 Project Overview
